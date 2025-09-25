@@ -8,6 +8,8 @@ public class Animation extends AnimationTimer {
     private final double sceneHeight;
     private long previousTime;
     private static final double NS_IN_S = 1_000_000_000.0;
+    private final double GRAVITY = 2000;
+    private final double COST_OF_RESTITUTION = 0.9;
 
     public Animation(Ball ball, double sceneWidth, double sceneHeight) {
         this.ball = ball;
@@ -18,7 +20,7 @@ public class Animation extends AnimationTimer {
     @Override
     public void handle(long currentTime) {
         double elapsedTime = (currentTime - previousTime) / NS_IN_S;
-        ball.updatePos(elapsedTime, sceneWidth, sceneHeight);
+        ball.updatePos(elapsedTime, sceneWidth, sceneHeight, GRAVITY, COST_OF_RESTITUTION);
         previousTime = currentTime;
     }
 
