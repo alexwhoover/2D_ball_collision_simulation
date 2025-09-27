@@ -9,7 +9,6 @@ public class Ball extends Circle {
     private double y;
     private double vel_x;
     private double vel_y;
-    private double min_vel_threshold = 10;
 
     public Ball(double radius, double x, double y, double vel_x, double vel_y, Color fill_colour) {
         super(x, y, radius);
@@ -21,11 +20,9 @@ public class Ball extends Circle {
         setFill(fill_colour);
     }
 
-    public void updatePos(double elapsedTime, double sceneWidth, double sceneHeight, double g, double COR) {
+    public void updatePos(double elapsedTime, double sceneWidth, double sceneHeight, double COR) {
         x = x + vel_x * elapsedTime;
-
-        vel_y = vel_y + g * elapsedTime;
-        y = y + vel_y * elapsedTime + 1.0 / 2.0 * g * (elapsedTime * elapsedTime);
+        y = y + vel_y * elapsedTime;
 
         checkWallCollision(COR, sceneWidth, sceneHeight);
         setCenterX(x);
@@ -52,12 +49,9 @@ public class Ball extends Circle {
         }
 
         // Bottom Wall
-        if (y + radius >= sceneHeight && Math.abs(vel_y) >= min_vel_threshold) {
+        if (y + radius >= sceneHeight) {
             vel_y *= -COR;
             y = sceneHeight - radius;
-        }
-        else if (y + radius >= sceneHeight) {
-            vel_y = 0;
         }
     }
 }
