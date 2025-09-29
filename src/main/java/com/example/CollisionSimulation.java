@@ -15,22 +15,22 @@ import java.util.Random;
 public class CollisionSimulation extends Application {
     @Override
     public void start(Stage primaryStage) {
-        int num_balls = 100;
+        int num_balls = 75;
         double min_vel = 100.0;
         double max_vel = 300.0;
         double min_radius = 10.0;
         double max_radius = 50.0;
+        double time_limit = 120.0;
 
         ArrayList<Ball> balls = new ArrayList<>();
         Pane root = new Pane();
         Scene scene = new Scene(root, 1200, 800);
         Random rand = new Random();
 
-        // Generate random balls
+        // Generate random balls that do not initially overlap
         for (int i = 0; i < num_balls; i++) {
             Ball ball;
 
-            // Keep trying to generate a new random ball until it does not overlap with any other balls
             do {
                 ball = genRandBall(min_radius, max_radius, min_vel, max_vel, scene.getWidth(), scene.getHeight(), rand);
             } while (overlaps(ball, balls));
@@ -45,6 +45,7 @@ public class CollisionSimulation extends Application {
         primaryStage.show();
 
         CollisionSystem sys = new CollisionSystem(balls, scene.getWidth(), scene.getHeight());
+        sys.initialize(time_limit);
         SimulationTimer timer = new SimulationTimer(sys);
         timer.start();
     }
@@ -64,7 +65,6 @@ public class CollisionSimulation extends Application {
         return min + rand.nextDouble() * (max - min);
     }
 
-    // Given a list of shapes, show them on a pane
     private void showShapes(List<? extends Shape> objects, Pane pane) {
         for (Shape obj : objects) {
             pane.getChildren().add(obj);
@@ -84,7 +84,7 @@ public class CollisionSimulation extends Application {
         }
         return false;
     }
-
+    // SimulationTimer drives the on-screen animation
     private static class SimulationTimer extends AnimationTimer {
         private long prevTime = -1;
         private final CollisionSystem sys;
@@ -101,7 +101,6 @@ public class CollisionSimulation extends Application {
             }
             double dt = (currentTime - prevTime) / 1e9; // seconds
             sys.nextFrame(dt);
-            sys.initialize(10.0);
             prevTime = currentTime;
         }
     }
