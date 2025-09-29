@@ -9,7 +9,7 @@ This project was inspired by Robert Sedgewick's lecture on Event-Driven Simulati
 ![Simulation Demo](example.gif)
 
 <i>Simulation can also model Brownian motion.</i>
-![Brownian Motion Demo](brownian.gif)
+![Brownian Motion Demo](brownian_motion.gif)
 
 ## Installation and Setup Instructions
 
