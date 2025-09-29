@@ -5,8 +5,8 @@ import javafx.scene.paint.Color;
 
 public class Ball extends Circle {
     private int colCount;
-    private double radius;
-    private double mass;
+    private final double radius;
+    private final double mass;
     private double x;
     private double y;
     private double vel_x;
@@ -16,7 +16,7 @@ public class Ball extends Circle {
         super(x, y, radius);
         this.colCount = 0;
         this.radius = radius;
-        this.mass = Math.PI * radius * radius;
+        this.mass = Math.PI * radius * radius; // Assumes uniform density among balls
         this.x = x;
         this.y = y;
         this.vel_x = vel_x;
@@ -27,7 +27,6 @@ public class Ball extends Circle {
     public void updatePos(double elapsedTime) {
         x = x + vel_x * elapsedTime;
         y = y + vel_y * elapsedTime;
-
         setCenterX(x);
         setCenterY(y);
     }
@@ -108,7 +107,7 @@ public class Ball extends Circle {
         double C = dx*dx + dy*dy - sigma*sigma;
         double radicand = B*B - A*C;
 
-        // If radicand cannot be solved, there exists no time where balls will collide
+        // If radicand cannot be solved, there exists no time when balls will collide
         if (radicand < 0) {
             return Double.POSITIVE_INFINITY;
         }
@@ -136,6 +135,13 @@ public class Ball extends Circle {
 
         double B = dx*dvx + dy*dvy;
         double d = this.radius + that.radius;
+
+        /*
+        Impulse magnitude along the line connecting centers:
+        Derived from 1D elastic collision along line of centers.
+        J = (2 * m1 * m2 / (m1 + m2)) * (relative velocity along line) / distance
+        This ensures momentum and kinetic energy are conserved along the collision axis.
+        */
 
         double J = (2.0 * m1 * m2) / (m1 + m2) * (B / d);
         double Jx = J * dx / d;

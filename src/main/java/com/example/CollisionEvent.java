@@ -1,9 +1,9 @@
 package com.example;
 
 public class CollisionEvent implements Comparable<CollisionEvent>{
-    private double time;
-    private Ball a, b;
-    private int colCountA, colCountB; // Collision counter
+    private final double time;
+    private final Ball a, b;
+    private final int colCountA, colCountB; // Collision counter
 
     public CollisionEvent(double time, Ball a, Ball b) {
         this.time = time;
@@ -41,7 +41,8 @@ public class CollisionEvent implements Comparable<CollisionEvent>{
         return Double.compare(this.time, that.time);
     }
 
-    // Check to see if ball a or b have collided with another ball since event initialized in PQ
+    // Check to see if ball a or b have collided with another ball / wall since event initialized in PQ
+    // If so, the event is no longer valid as the balls are on different trajectories
     public boolean isValid() {
         if (a == null && b == null) {
             return false;

@@ -1,6 +1,7 @@
 package com.example;
 
 import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.scene.paint.Color;
 import javafx.scene.layout.Pane;
 import javafx.application.Application;
@@ -15,19 +16,20 @@ import java.util.Random;
 public class CollisionSimulation extends Application {
     @Override
     public void start(Stage primaryStage) {
+        // Simulation Options
         int num_balls = 75;
-        double min_vel = 100.0;
-        double max_vel = 300.0;
-        double min_radius = 10.0;
-        double max_radius = 50.0;
-        double time_limit = 120.0;
+        double min_vel = 100.0; // pixels per second
+        double max_vel = 300.0; // pixels per second
+        double min_radius = 10.0; // pixels
+        double max_radius = 50.0; // pixels
+        double time_limit = 10.0; // seconds
 
-        ArrayList<Ball> balls = new ArrayList<>();
         Pane root = new Pane();
         Scene scene = new Scene(root, 1200, 800);
         Random rand = new Random();
 
         // Generate random balls that do not initially overlap
+        List<Ball> balls = new ArrayList<>();
         for (int i = 0; i < num_balls; i++) {
             Ball ball;
 
@@ -40,7 +42,7 @@ public class CollisionSimulation extends Application {
 
         showShapes(balls, root);
 
-        primaryStage.setTitle("Bouncing Ball Animation");
+        primaryStage.setTitle("Colliding Balls Simulation");
         primaryStage.setScene(scene);
         primaryStage.show();
 
@@ -102,6 +104,12 @@ public class CollisionSimulation extends Application {
             double dt = (currentTime - prevTime) / 1e9; // seconds
             sys.nextFrame(dt);
             prevTime = currentTime;
+
+            // Stop animation timer and close window once time limit has been reached
+            if (sys.hasReachedLimit()) {
+                stop();
+                Platform.exit();
+            }
         }
     }
 
