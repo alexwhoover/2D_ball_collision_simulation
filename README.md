@@ -20,10 +20,10 @@ cd 2D_ball_collision_simulation
 ```
 
 
-### To Run
+### To Run (Windows Powershell)
 1. Set an environmental variable pointing to JavaFX SDK
 ```powershell
-$env:JAVAFX_HOME "...\openjfx-25_windows-x64_bin-sdk\javafx-sdk-25"
+$env:JAVAFX_HOME = "...\openjfx-25_windows-x64_bin-sdk\javafx-sdk-25"
 ```
 2. Compile the project
 ```powershell
