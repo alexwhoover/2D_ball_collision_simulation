@@ -7,6 +7,10 @@ This project was inspired by Robert Sedgewick's lecture on Event-Driven Simulati
 ## Screen Recording
 <i>Framerate lower due to gif format.</i>
 ![Simulation Demo](example.gif)
+
+<i>Simulation can also model Brownian motion.</i>
+![Brownian Motion Demo](brownian.gif)
+
 ## Installation and Setup Instructions
 
 ### Requirements

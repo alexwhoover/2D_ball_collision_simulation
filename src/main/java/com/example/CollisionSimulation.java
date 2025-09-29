@@ -17,12 +17,12 @@ public class CollisionSimulation extends Application {
     @Override
     public void start(Stage primaryStage) {
         // Simulation Options
-        int num_balls = 75;
+        int num_balls = 150;
         double min_vel = 100.0; // pixels per second
         double max_vel = 300.0; // pixels per second
         double min_radius = 10.0; // pixels
-        double max_radius = 50.0; // pixels
-        double time_limit = 10.0; // seconds
+        double max_radius = 40.0; // pixels
+        double time_limit = 120.0; // seconds
 
         Pane root = new Pane();
         Scene scene = new Scene(root, 1200, 800);
